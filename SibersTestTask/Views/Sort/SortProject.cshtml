@@ -1,0 +1,53 @@
+﻿@*
+    Представление для вывода сортируемых данных проектов    
+*@
+
+@using SibersTestTask.Models.Entities
+@using SibersTestTask.Models.Sort
+
+@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Sorting projects";
+}
+<div><a class="btn btn-dark" asp-action="Projects" asp-controller="Home">Back to the projects</a></div>
+
+<h1>List projects</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="SortProject" asp-route-sortOrder="@ViewBag.NameSort">Name</a>
+        </th>
+        <th>
+            <a asp-action="SortProject" asp-route-sortOrder="@ViewBag.PrioritySort">Priority</a>
+        </th>
+        <th>
+            <a asp-action="SortProject" asp-route-sortOrder="@ViewBag.CustomerCompanySort">Customer Company</a>
+        </th>
+        <th>
+            <a asp-action="SortProject" asp-route-sortOrder="@ViewBag.ContractorCompanySort">Contractor Company</a>
+        </th>
+        <th>
+            <a  asp-action="SortProject" asp-route-sortOrder="@ViewBag.DirectorSort">Director</a>
+        </th>
+    </tr>
+    @foreach (Project project in Model)
+    {
+        <tr>
+            <td><a asp-action="DetailsProject" asp-controller="Details" asp-route-id="@project.Id">@project.Name</a></td>
+            <td>@project.Priority</td>
+            <td>@project.CustomerCompany</td>
+            <td>@project.ContractorCompany</td>
+            <td>
+            @foreach (Employee director in project.Employees)
+                if (director.Id == project.DirectorId)
+                {
+                    @director.SecondName
+                    @director.FirstName
+                    @director.FatherName
+                }
+            </td>
+        </tr>
+    }
+</table>

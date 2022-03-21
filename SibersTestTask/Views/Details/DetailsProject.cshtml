@@ -1,0 +1,75 @@
+﻿@*
+    Представление для вывода данных проекта
+*@
+
+@model SibersTestTask.Models.Entities.Project
+@{
+    ViewBag.Title = Model.Name;
+}
+<div>
+    <a asp-action="Projects" asp-controller="Home" class="btn btn-dark">Back</a>
+</div>
+<h2>@Model.Name</h2>
+<div>
+    <a class="btn btn-dark" asp-action="EditProject" asp-controller="Edit" asp-route-id="@Model.Id">Edit</a>
+    <dl class="dl-horizontal">
+        <dt>Id</dt>
+        <dd>@Model.Id</dd>
+
+        <dt>Project name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Priority</dt>
+        <dd>@Model.Priority</dd>
+
+        <dt>Cutomer company</dt>
+        <dd>@Model.CustomerCompany</dd>
+
+        <dt>Contractor company</dt>
+        <dd>@Model.ContractorCompany</dd>
+
+        <dt>Project director</dt>
+        @* Нахождение руководителя по id и вывод его данных *@
+        @foreach (var item in Model.Employees)
+        {
+            @if (item.Id == Model.DirectorId)
+            {
+                <dd>@item.SecondName @item.FirstName @item.FatherName</dd>
+            }
+        }
+    </dl>
+
+    @* Вывод данных сотрудников проекта *@
+    <dl class="dl-horizontal">
+        @if (Model.Employees.Count != 0)
+        {
+            <dt>Project team</dt>
+            @foreach (var item in Model.Employees)
+            {
+                @if (item.Id != Model.DirectorId)
+                {
+                    <dd>@item.SecondName @item.FirstName @item.FatherName</dd>
+                    <dd><a class="btn btn-dark btn-sm" asp-action="DeleteProjectTeam" asp-controller="Delete" asp-route-idProject="@Model.Id" asp-route-idEmployee="@item.Id">Delete</a></dd>
+                }
+            }
+        }
+    </dl>
+
+    @* Добавление сотрудников в проект *@
+    <form asp-action="AddEmployeeProject" asp-controller="Add" asp-route-idProject="@Model.Id">
+        <div><b>Add new employee to the project</b></div>
+        @foreach (var item in ViewBag.Employees)
+        {
+            @if (item.Id != Model.DirectorId)
+            {
+                <input type="checkbox" name="selectedEmployees" value="@item.Id" />
+                @item.SecondName @item.FirstName @item.FatherName
+                <br />
+            }
+        }
+        <p></p>
+        <div>
+            <input type="submit" value="Add employee" class="btn btn-dark btn-sm" />
+        </div>
+    </form>
+</div>

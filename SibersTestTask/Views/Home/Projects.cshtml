@@ -1,0 +1,24 @@
+﻿@*
+    Представление для вывода всех проектов
+*@
+
+@model IEnumerable<SibersTestTask.Models.Entities.Project>
+@{
+    ViewData["Title"] = "Projects";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to view, add, and delete existing projects. You can also go to the individual project page by clicking "Details"</p>
+
+<div>
+    <p><a asp-action="AddProject" asp-controller="Add" class="btn btn-dark">New Project</a></p>
+    <p><a asp-action="SortProject" asp-controller="Sort" class="btn btn-dark">Sorting</a></p>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+            <dt>@item.Name</dt>
+            <dd><a class="btn btn-dark btn-sm" asp-action="DetailsProject" asp-controller="Details" asp-route-id="@item.Id">Details</a></dd>
+            <dd><a class="btn btn-dark btn-sm" asp-action="DeleteProject" asp-controller="Delete" asp-route-id="@item.Id">Delete</a></dd>
+        }
+    </dl>
+</div>

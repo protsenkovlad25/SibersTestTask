@@ -1,0 +1,52 @@
+﻿@*
+    Представление для редактирования данных проекта
+*@
+
+@model SibersTestTask.Models.Entities.Project
+@{
+    ViewData["Title"] = "Edit project";
+    int oldDirector = Model.DirectorId;
+}
+
+<form asp-action="EditProject" asp-controller="Edit" asp-route-id="@Model.Id">
+    <div>
+        <a asp-action="DetailsProject" asp-controller="Details" asp-route-id="@Model.Id" class="btn btn-dark">Back</a>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name project</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority" class="control-label">Priority</label>
+        <input type="number" asp-for="Priority" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerCompany" class="control-label">Customer-company</label>
+        <input type="text" asp-for="CustomerCompany" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ContractorCompany" class="control-label">Contractor-company</label>
+        <input type="text" asp-for="ContractorCompany" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Start" class="control-label">Project start date</label>
+        <input type="datetime-local" asp-for="Start" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="End" class="control-label">Project end date</label>
+        <input type="datetime-local" asp-for="End" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="DirectorId" class="control-label">Project director: </label>
+        @* Вывод в список сотрудников, которых нет в проекте *@
+        <select asp-for="DirectorId">
+            @foreach (var item in ViewBag.Employees)
+            {
+                <option value="@item.Id">@item.SecondName @item.FirstName @item.FatherName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input asp-route-idDirector="@oldDirector" type="submit" value="Edit" class="btn btn-dark" />
+    </div>
+</form>

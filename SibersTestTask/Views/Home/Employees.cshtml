@@ -1,0 +1,23 @@
+﻿@*
+    Представление для вывода всех сотрудников
+*@
+
+@model IEnumerable<SibersTestTask.Models.Entities.Employee>
+@{
+    ViewData["Title"] = "Employees";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to view, add, and delete existing employees. You can also go to the individual employee page by clicking "Details"</p>
+
+<div>
+    <p><a asp-action="AddEmployee" asp-controller="Add" class="btn btn-dark">New Employee</a></p>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+            <dt>@item.SecondName @item.FirstName @item.FatherName</dt>
+            <dd><a class="btn btn-dark btn-sm" asp-action="DetailsEmployee" asp-controller="Details" asp-route-id="@item.Id">Details</a></dd>
+            <dd><a class="btn btn-dark btn-sm" asp-action="DeleteEmployee" asp-controller="Delete" asp-route-id="@item.Id">Delete</a></dd>
+        }
+    </dl>
+</div>

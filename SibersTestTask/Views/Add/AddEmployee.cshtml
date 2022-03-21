@@ -1,0 +1,33 @@
+﻿@*
+    Представление для занесения данных нового сотрудника
+*@
+
+@model SibersTestTask.Models.Entities.Employee
+@{
+    ViewData["Title"] = "Add new employee";
+}
+
+<form asp-action="AddEmployee" asp-controller="Add">
+    <div>
+        <a asp-action="Employees" asp-controller="Home" class="btn btn-dark">Back</a>
+    </div>
+    <div class="form-group">
+        <label asp-for="SecondName" class="control-label">Second name</label>
+        <input type="text" asp-for="SecondName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label">First name</label>
+        <input type="text" asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FatherName" class="control-label">Father name</label>
+        <input type="text" asp-for="FatherName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-dark" />
+    </div>
+</form>

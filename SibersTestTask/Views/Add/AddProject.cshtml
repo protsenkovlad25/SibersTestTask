@@ -1,0 +1,51 @@
+﻿@*
+    Представление для занесение данных нового проекта    
+*@
+
+@model SibersTestTask.Models.Entities.Project
+@{ 
+    ViewData["Title"] = "Add new project";
+}
+
+<form asp-action="AddProject" asp-controller="Add">
+    <div>
+        <a asp-action="Projects" asp-controller="Home" class="btn btn-dark">Back</a>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name project</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority" class="control-label">Priority</label>
+        <input type="number" asp-for="Priority" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerCompany" class="control-label">Customer-company</label>
+        <input type="text" asp-for="CustomerCompany" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ContractorCompany" class="control-label">Contractor-company</label>
+        <input type="text" asp-for="ContractorCompany" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Start" class="control-label">Project start date</label>
+        <input type="datetime-local" asp-for="Start" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="End" class="control-label">Project end date</label>
+        <input type="datetime-local" asp-for="End" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="DirectorId" class="control-label">Project director: </label>
+        @* Вывод всех сотрудников в список для выбора руководителя *@
+        <select asp-for="DirectorId">
+            @foreach (var item in ViewBag.Employees)
+            {
+                <option value="@item.Id">@item.SecondName @item.FirstName @item.FatherName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-dark" />
+    </div>
+</form>
